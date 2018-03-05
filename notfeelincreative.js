@@ -13,7 +13,6 @@ var width = 500;
 var height = 500;
 var counterX, counterY;
 
-
 var change = function(e){
   e.preventDefault();
   this.setAttribute("fill", "green");
@@ -77,26 +76,49 @@ var grownshrink = function(){
   //console.log(id);
 }
 
-
 var stop = function(e){
   window.cancelAnimationFrame(id);
 }
 
+var clear = function(e){
+    while (svg.firstChild) {
+        svg.removeChild(svg.firstChild);
+    }
+    counter = 0;
+};
 
+
+var multX = 1;
+var multY = 1;
 var dvdz = function(){
   clear();
   var img = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "image"
   );
-  img.setAttribute('href' ,'dvd_logo.png');
-  img.setAttribute("width", 100);
-  img.setAttribute("height", 50);
-  img.setAttribute("x", x);
-  img.setAttribute("y", y);
+  img.setAttribute('href' ,'dvdlogo.jpg');
+  img.setAttribute("width", 150);
+  img.setAttribute("height", 100);
+  img.setAttribute("x", xpos);
+  img.setAttribute("y", ypos);
+/*  if (xpos <= 0 || xpos >= 440){
+      multX *= -1;
+  }
+  if (ypos <= 0 || ypos >= 440){
+      multY *= -1;
+  }
+  var speed = 4;
+
+  xpos += speed * multX;
+  ypos += speed * multY;
+  //window.cancelAnimationFrame(id2);
+  id2 = window.requestAnimationFrame(dvdz);
+}*/
+  svg.appendChild(img);
+  console.log(xpos);
 }
 
 
 stopit.addEventListener("click", stop);
 sizeChange.addEventListener("click", innout);
-//bounce.addEventListener("click", dvdz);
+bounce.addEventListener("click", dvdz);
