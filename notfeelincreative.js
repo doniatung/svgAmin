@@ -56,6 +56,7 @@ var grownshrink = function(){
     }
     else{
       counter = !counter;
+      clear();
       size --;
       drawDot(xpos, ypos, size);
     }
@@ -90,34 +91,34 @@ var clear = function(e){
 
 var multX = 1;
 var multY = 1;
-var dvdz = function(){
-  clear();
-  var img = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "image"
-  );
-  img.setAttribute('href' ,'dvdlogo.jpg');
-  img.setAttribute("width", 150);
-  img.setAttribute("height", 100);
-  img.setAttribute("x", xpos);
-  img.setAttribute("y", ypos);
-/*  if (xpos <= 0 || xpos >= 440){
-      multX *= -1;
-  }
-  if (ypos <= 0 || ypos >= 440){
-      multY *= -1;
-  }
-  var speed = 4;
+var dvdz = function(e){
+    clear();
+    var imgW = 200;
+    var imgH = 150;
+    var x = Math.random()*(600-imgW);
+    var y = Math.random()*(600-imgH);
+    var dX = 1;
+    var dY = 1;
+    var dvdLogo = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    dvdLogo.setAttribute("width", imgW);
+    dvdLogo.setAttribute("height", imgH);
+    dvdLogo.setAttribute("href", 'dvdlogo.jpeg');
+    svg.appendChild(dvdLogo);
+    var move = function() {
+	dvdLogo.setAttribute("x", x);
+	dvdLogo.setAttribute("y", y);
+	if(x+imgW >= 600 || x < 0){
+	    dX *= -1;
+	}
+	if(y+imgH >= 600 || y < 0){
+	    dY *= -1;
+	}
+	x+=dX;
+	y+=dY;
+    }
 
-  xpos += speed * multX;
-  ypos += speed * multY;
-  //window.cancelAnimationFrame(id2);
-  id2 = window.requestAnimationFrame(dvdz);
-}*/
-  svg.appendChild(img);
-  console.log(xpos);
+    id = setInterval(move, 10);
 }
-
 
 stopit.addEventListener("click", stop);
 sizeChange.addEventListener("click", innout);
